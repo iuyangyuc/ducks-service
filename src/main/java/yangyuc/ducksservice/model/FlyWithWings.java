@@ -1,2 +1,8 @@
-package yangyuc.ducksservice.model;public class FlyWithWings {
+package yangyuc.ducksservice.model;
+
+public class FlyWithWings implements FlyBehavior {
+    @Override
+    public void fly() {
+        System.out.println("I'm flying!!");
+    }
 }

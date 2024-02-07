@@ -1,2 +1,7 @@
-package yangyuc.ducksservice.model;public interface FlyBehavior {
+package yangyuc.ducksservice.model;
+
+import org.springframework.stereotype.Component;
+
+public interface FlyBehavior {
+    public void fly();
 }
