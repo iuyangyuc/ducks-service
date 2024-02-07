@@ -1,20 +1,22 @@
 package yangyuc.ducksservice.repository;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import yangyuc.ducksservice.model.Duck;
-import yangyuc.ducksservice.model.Type;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 @Component
 public class DucksRepository {
     private static final String DATABASE_NAME = "ducks.txt";
+    private static final String IMAGES_FOLDER_PATH = "images/";
 
     private static ArrayList<Duck.DuckData> buildDuckList() throws FileNotFoundException {
         ArrayList<Duck.DuckData> duckList = new ArrayList<>();
@@ -61,12 +63,22 @@ public class DucksRepository {
         return result;
     }
 
-    public static boolean addImage(int id, String image) {
-        return false;
+    public static boolean addImage(int id, MultipartFile image) throws IOException {
+        System.out.println(image.getOriginalFilename());
+        System.out.println(image.getContentType());
+
+        String fileExtension = ".png";
+        Path path = Paths.get(IMAGES_FOLDER_PATH + id + fileExtension);
+        System.out.println("The file " + path + " was saved successfully.");
+        image.transferTo(path);
+        return true;
     }
 
-    public static String getImage(int id) {
-        return null;
+    public static byte[] getImage(int id) throws IOException {
+        String fileExtension = ".png";
+        Path path = Paths.get(IMAGES_FOLDER_PATH + id + fileExtension);
+        byte[] image = Files.readAllBytes(path);
+        return image;
     }
 
     public static boolean addAudio(int id, String audio) {

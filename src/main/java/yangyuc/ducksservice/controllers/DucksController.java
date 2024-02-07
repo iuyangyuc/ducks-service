@@ -1,6 +1,10 @@
 package yangyuc.ducksservice.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import yangyuc.ducksservice.model.Duck;
 import yangyuc.ducksservice.repository.DucksRepository;
 
@@ -8,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/ducks")
 public class DucksController {
 
@@ -38,13 +43,14 @@ public class DucksController {
     }
 
     @PostMapping("/add/{id}/image")
-    public boolean addImage(@PathVariable int id, @RequestParam String image) {
-        return false;
+    public boolean addImage(@PathVariable int id, @RequestParam MultipartFile image) throws IOException {
+        return DucksRepository.addImage(id, image);
     }
 
     @GetMapping("/get/{id}/image")
-    public String getImage(@PathVariable int id) {
-        return null;
+    public ResponseEntity<?> getImage(@PathVariable int id) throws IOException {
+        byte[] image = DucksRepository.getImage(id);
+        return ResponseEntity.status(HttpStatus.FOUND).contentType(MediaType.IMAGE_PNG).body(image);
     }
 
     @PostMapping("/add/{id}/audio")
