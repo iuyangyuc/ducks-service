@@ -47,10 +47,10 @@ class DucksRepositoryTest {
         Duck.DuckData duck3 = new Duck.DuckData(3, Type.RUBBER_DUCK.toString());
         Duck.DuckData duck4 = new Duck.DuckData(4, Type.DECOY_DUCK.toString());
         ArrayList<Duck.DuckData> ducks = new ArrayList<>();
-        ducks.add(duck);
-        ducks.add(duck2);
         ducks.add(duck3);
         ducks.add(duck4);
+        ducks.add(duck);
+        ducks.add(duck2);
         assertEquals(ducks, DucksRepository.getAllDucks());
     }
 
@@ -61,10 +61,10 @@ class DucksRepositoryTest {
         Duck.DuckData duck3 = new Duck.DuckData(3, Type.RUBBER_DUCK.toString());
         Duck.DuckData duck4 = new Duck.DuckData(4, Type.DECOY_DUCK.toString());
         ArrayList<Duck.DuckData> ducks = new ArrayList<>();
-        ducks.add(duck);
-        ducks.add(duck2);
         ducks.add(duck3);
         ducks.add(duck4);
+        ducks.add(duck);
+        ducks.add(duck2);
         assertEquals(ducks, DucksRepository.searchDuck(new Duck.DuckData(null, null)));
         assertEquals(duck, DucksRepository.searchDuck(new Duck.DuckData(1, null)).get(0));
         assertEquals(duck2, DucksRepository.searchDuck(new Duck.DuckData(null, Type.REDHEAD.toString())).get(0));
