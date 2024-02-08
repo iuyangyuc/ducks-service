@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class DucksRepository {
     private static final String DATABASE_NAME = "ducks.txt";
     private static final String IMAGES_FOLDER_PATH = "images/";
+    private static final String AUDIO_FOLDER_PATH = "audio/";
 
     private static ArrayList<Duck.DuckData> buildDuckList() throws FileNotFoundException {
         ArrayList<Duck.DuckData> duckList = new ArrayList<>();
@@ -81,11 +82,17 @@ public class DucksRepository {
         return image;
     }
 
-    public static boolean addAudio(int id, String audio) {
-        return false;
+    public static boolean addAudio(int id, MultipartFile audio) throws IOException {
+        String fileExtension = ".mp3";
+        Path path = Paths.get(AUDIO_FOLDER_PATH + id + fileExtension);
+        audio.transferTo(path);
+        return true;
     }
 
-    public static String getAudio(int id) {
-        return null;
+    public static byte[] getAudio(int id) throws IOException {
+        String fileExtension = ".mp3";
+        Path path = Paths.get(AUDIO_FOLDER_PATH + id + fileExtension);
+        byte[] audio = Files.readAllBytes(path);
+        return audio;
     }
 }

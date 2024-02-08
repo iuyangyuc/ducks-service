@@ -54,12 +54,13 @@ public class DucksController {
     }
 
     @PostMapping("/add/{id}/audio")
-    public boolean addAudio(@PathVariable int id, @RequestParam String audio) {
-        return false;
+    public boolean addAudio(@PathVariable int id, @RequestParam MultipartFile audio) throws IOException {
+        return DucksRepository.addAudio(id, audio);
     }
 
     @GetMapping("/get/{id}/audio")
-    public String getAudio(@PathVariable int id) {
-        return null;
+    public ResponseEntity<?> getAudio(@PathVariable int id) throws IOException {
+        byte[] audio = DucksRepository.getAudio(id);
+        return ResponseEntity.status(HttpStatus.FOUND).contentType(MediaType.APPLICATION_OCTET_STREAM).body(audio);
     }
 }

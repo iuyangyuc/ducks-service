@@ -13,14 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DucksRepositoryTest {
 
     @Test
-    void getDuck() throws FileNotFoundException {
-        Duck.DuckData duck = new Duck.DuckData(1, Type.MALLARD.toString());
-        Duck.DuckData duck2 = new Duck.DuckData(2, Type.REDHEAD.toString());
-        assertEquals(duck, DucksRepository.getDuck(1));
-        assertEquals(duck2, DucksRepository.getDuck(2));
-    }
-
-    @Test
     void addDuck() throws IOException {
         Duck.DuckData duck = new Duck.DuckData(1, Type.MALLARD.toString());
         Duck.DuckData duck2 = new Duck.DuckData(2, Type.REDHEAD.toString());
@@ -31,12 +23,34 @@ class DucksRepositoryTest {
     }
 
     @Test
+    void addDuck_2() throws IOException {
+        Duck.DuckData duck = new Duck.DuckData(3, Type.RUBBER_DUCK.toString());
+        Duck.DuckData duck2 = new Duck.DuckData(4, Type.DECOY_DUCK.toString());
+        DucksRepository.addDuck(duck);
+        DucksRepository.addDuck(duck2);
+        assertEquals(duck, DucksRepository.getDuck(3));
+        assertEquals(duck2, DucksRepository.getDuck(4));
+    }
+
+    @Test
+    void getDuck() throws FileNotFoundException {
+        Duck.DuckData duck = new Duck.DuckData(1, Type.MALLARD.toString());
+        Duck.DuckData duck2 = new Duck.DuckData(2, Type.REDHEAD.toString());
+        assertEquals(duck, DucksRepository.getDuck(1));
+        assertEquals(duck2, DucksRepository.getDuck(2));
+    }
+
+    @Test
     void getAllDucks() throws FileNotFoundException {
         Duck.DuckData duck = new Duck.DuckData(1, Type.MALLARD.toString());
         Duck.DuckData duck2 = new Duck.DuckData(2, Type.REDHEAD.toString());
+        Duck.DuckData duck3 = new Duck.DuckData(3, Type.RUBBER_DUCK.toString());
+        Duck.DuckData duck4 = new Duck.DuckData(4, Type.DECOY_DUCK.toString());
         ArrayList<Duck.DuckData> ducks = new ArrayList<>();
         ducks.add(duck);
         ducks.add(duck2);
+        ducks.add(duck3);
+        ducks.add(duck4);
         assertEquals(ducks, DucksRepository.getAllDucks());
     }
 
